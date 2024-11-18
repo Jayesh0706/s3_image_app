@@ -1,8 +1,9 @@
+
 <?php
 session_start();
 
 // Database configuration
-$host = 'database-1.clmk2e86erwk.ap-south-1.rds.amazonaws.com';
+$host = 'image-db.cp0wuao8ky1o.ap-south-1.rds.amazonaws.com';
 $db = 'user_db';
 $user = 'root';
 $pass = 'pass1234';
@@ -34,7 +35,7 @@ $s3Client = new S3Client([
     'version' => 'latest'
 ]);
 
-$bucketName = 'jayesh1610'; // Your S3 bucket name
+$bucketName = 'prachi2210'; // Your S3 bucket name
 
 // Handle image deletion
 if (isset($_POST['delete_image'])) {
@@ -49,12 +50,14 @@ if (isset($_POST['delete_image'])) {
     // Extract the S3 object key from the image URL
     $parsedUrl = parse_url($image_url);
     $objectKey = ltrim($parsedUrl['path'], '/'); // Remove leading slash from path
-
+    $decodedObjectKey = urldecode($objectKey);
+    error_log("Object Key: " . $decodedObjectKey);
+    
     // Delete the image from S3
     try {
         $result = $s3Client->deleteObject([
             'Bucket' => $bucketName,
-            'Key'    => $objectKey,
+            'Key'    => $decodedObjectKey,
         ]);
 
         if ($result['@metadata']['statusCode'] === 204) {
@@ -72,6 +75,7 @@ $stmt = $conn->prepare("SELECT image_url FROM user_images WHERE user_id = ?");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $stmt->store_result();
+
 $stmt->bind_result($image_url);
 
 // Fetch images
@@ -112,32 +116,47 @@ $conn->close();
             margin-bottom: 20px;
             text-align: center;
         }
-        .images {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center; /* Center images horizontally */
-        }
-        .images img {
-            width: 100px; /* Adjust width for smaller images */
-            height: auto;
-            border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-        }
-        .delete-button {
-            display: block;
-            margin-top: 5px;
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .delete-button:hover {
-            background-color: #c82333;
-        }
+.images {
+    display: grid; /* Use grid layout */
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjust column size */
+    gap: 15px; /* Space between items */
+    justify-content: center; /* Center the grid horizontally */
+}
+
+.images div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff; /* Add a background for each image block */
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add some shadow */
+}
+
+.images img {
+    width: 100%; /* Make the image fill its container */
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.delete-button {
+    margin-top: 10px; /* Add space between the image and button */
+    width: 100%; /* Make button full width */
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}
         a {
             display: inline-block;
             padding: 10px 15px;
