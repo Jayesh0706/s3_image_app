@@ -19,7 +19,7 @@ $s3 = new S3Client([
 ]);
 
 // Database connection
-$conn = new mysqli('database-1.clmk2e86erwk.ap-south-1.rds.amazonaws.com', 'root', 'pass1234', 'user_db');
+$conn = new mysqli('image-db.cp0wuao8ky1o.ap-south-1.rds.amazonaws.com', 'root', 'pass1234', 'user_db');
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -38,7 +38,7 @@ if (isset($_FILES['images'])) {
         try {
             // Upload the image to S3
             $result = $s3->putObject([
-                'Bucket' => 'jayesh1610',
+                'Bucket' => 'prachi2210',
                 'Key' => $filePath,
                 'SourceFile' => $tmp_name,
                 'ACL' => 'public-read',
