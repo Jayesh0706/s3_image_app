@@ -36,4 +36,4 @@ The application is deployed in a **4-tier AWS architecture**:
    - **Amazon CloudWatch** for logging, monitoring, and metrics.
    - **Amazon SNS** for notifications in case of application or infrastructure issues.
 
-![Architecture Diagram](docs/images/architecture_diagram)
+![Architecture Diagram](docs/images/architecture-diagram)
