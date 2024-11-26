@@ -36,4 +36,58 @@ The application is deployed in a **4-tier AWS architecture**:
    - **Amazon CloudWatch** for logging, monitoring, and metrics.
    - **Amazon SNS** for notifications in case of application or infrastructure issues.
 
-![Architecture Diagram](docs/images/architecture-diagram)
+![Architecture Diagram](docs/images/architecture-diagram.png)
+
+## ⚙️ Setup Instructions
+
+### Steps
+
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/your_username/your_repo.git
+   cd your_repo
+ 
+2. **Configure AWS**
+
+- Set up S3 bucket and enable public access for images.
+- Launch an EC2 instance with Amazon Linux.
+- Set up RDS with a MySQL database.
+
+3. **Deploy Code**
+
+- Upload the application code to the EC2 instance.
+- Configure Nginx to serve your application.
+- Set up your PHP application to interact with S3 and RDS.
+
+4. **CloudFront Configuration**
+
+- Create a CloudFront distribution for your S3 bucket for CDN.
+
+5. **Access the Application**
+
+- Access your application using the public DNS of the EC2 instance or via CloudFront.
+
+## 📸 Screenshots
+
+- **Register Page**  
+  ![Register Page](docs/images/register-page.jpg)
+
+- **Login Page**  
+  ![Login Page](docs/images/login-page.jpg)
+
+- **Dashboard Page**  
+  ![Dashboard Page](docs/images/dashboard-page.jpg)
+
+- **Resource Map**  
+  ![Resource Map](docs/images/resource-map.jpg)
+
+- **Target Map**  
+  ![Target Map](docs/images/target-map.jpg)
+
+- **SNS Notification**  
+  ![SNS Notification](docs/images/sns-notification-email.jpg)
+
+## 🤝 Contribution
+
+Contributions are welcome! Please open an issue or submit a pull request.
+
